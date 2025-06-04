@@ -28,6 +28,108 @@ struct FarmingSeason {
         else return "Break-even";
     }
 };
+struct Node {
+    FarmingSeason season;
+    Node* next;
+    Node(const FarmingSeason& s) : season(s), next(nullptr) {}
+};
+
+Node* head = nullptr;
+
+int getCurrentYear() {
+    time_t t = time(nullptr);
+    tm* now = localtime(&t);
+    return now->tm_year + 1900;
+}
+
+bool isValidSeason(const string& season) {
+    return find(validSeasons.begin(), validSeasons.end(), season) != validSeasons.end();
+}
+
+void displayFarmingSeason(const FarmingSeason& s) {
+    cout << "Season: " << s.seasonName << " " << s.year
+         << " | Crop: " << s.cropName
+         << " | Expenses: $" << s.expenses
+         << " | Income: $" << s.income
+         << " | Profit: $" << s.profit()
+         << " (" << s.profitOrLoss() << ")\n";
+}
+
+void insert(const FarmingSeason& s) {
+    Node* newNode = new Node(s);
+    if (!head) {
+        head = newNode;
+    } else {
+        Node* curr = head;
+        while (curr->next) {
+            curr = curr->next;
+        }
+        curr->next = newNode;
+    }
+}
+
+void saveAllToFile(const string& filename) {
+    ofstream file(filename);
+    if (!file.is_open()) {
+        cerr << "Error: Could not open file " << filename << " for saving.\n";
+        return;
+    }
+    Node* curr = head;
+    while (curr) {
+        file << curr->season.seasonName << "," << curr->season.cropName << "," << curr->season.year << ","
+             << curr->season.expenses << "," << curr->season.income << "\n";
+        curr = curr->next;
+    }
+    file.close();
+    cout << "All data saved to " << filename << ".\n";
+}
+
+void saveToFile(const FarmingSeason& s, const string& filename) {
+    ofstream file(filename, ios::app);
+    if (!file.is_open()) {
+        cerr << "Error: Could not open file " << filename << " for appending.\n";
+        return;
+    }
+    file << s.seasonName << "," << s.cropName << "," << s.year << ","
+         << s.expenses << "," << s.income << "\n";
+    file.close();
+}
+
+void loadFromFile(const string& filename) {
+    Node* current = head;
+    while (current != nullptr) {
+        Node* nextNode = current->next;
+        delete current;
+        current = nextNode;
+    }
+    head = nullptr;
+
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cout << "No existing crop data file found. Starting with an empty list.\n";
+        return;
+    }
+
+    string line;
+    while (getline(file, line)) {
+        size_t p1 = line.find(',');
+        size_t p2 = line.find(',', p1 + 1);
+        size_t p3 = line.find(',', p2 + 1);
+        size_t p4 = line.find(',', p3 + 1);
+        if (p1 == string::npos || p2 == string::npos || p3 == string::npos || p4 == string::npos) continue;
+
+        FarmingSeason fs;
+        fs.seasonName = line.substr(0, p1);
+        fs.cropName = line.substr(p1 + 1, p2 - p1 - 1);
+        fs.year = stoi(line.substr(p2 + 1, p3 - p2 - 1));
+        fs.expenses = stof(line.substr(p3 + 1, p4 - p3 - 1));
+        fs.income = stof(line.substr(p4 + 1));
+        insert(fs);
+    }
+
+    file.close();
+    cout << "Crop data loaded from " << filename << ".\n";
+}
 
 
 
