@@ -130,7 +130,151 @@ void loadFromFile(const string& filename) {
     file.close();
     cout << "Crop data loaded from " << filename << ".\n";
 }
+void deleteBySeason(const string& season) {
+    if (!head) {
+        cout << "List is empty. Nothing to delete.\n";
+        return;
+    }
 
+    Node* current = head;
+    Node* prev = nullptr;
+    bool deletedAny = false;
+    while (current != nullptr && current->season.seasonName == season) {
+        head = current->next;
+        delete current;
+        current = head;
+        deletedAny = true;
+    }
+    while (current != nullptr) {
+        if (current->season.seasonName == season) {
+            prev->next = current->next;
+            delete current;
+            current = prev->next;
+            deletedAny = true;
+        } else {
+            prev = current;
+            current = current->next;
+        }
+    }
+
+    if (deletedAny) {
+        saveAllToFile("crop.txt");
+        cout << "All entries for season '" << season << "' deleted.\n";
+    } else {
+        cout << "No entries found for season '" << season << "'.\n";
+    }
+}
+
+void deleteByCropName(const string& cropName) {
+    if (!head) {
+        cout << "List is empty. Nothing to delete.\n";
+        return;
+    }
+
+    Node* current = head;
+    Node* prev = nullptr;
+    bool deletedAny = false;
+
+    while (current != nullptr && current->season.cropName == cropName) {
+        head = current->next;
+        delete current;
+        current = head;
+        deletedAny = true;
+    }
+    while (current != nullptr) {
+        if (current->season.cropName == cropName) {
+            prev->next = current->next;
+            delete current;
+            current = prev->next;
+            deletedAny = true;
+        } else {
+            prev = current;
+            current = current->next;
+        }
+    }
+
+    if (deletedAny) {
+        saveAllToFile("crop.txt");
+        cout << "All entries for crop '" << cropName << "' deleted.\n";
+    } else {
+        cout << "No entries found for crop '" << cropName << "'.\n";
+    }
+}
+
+void updateExpenses() {
+    string season;
+    cout << "Enter season name to update expense for: ";
+    getline(cin, season);
+    if (!isValidSeason(season)) {
+        cout << "Invalid season.\n";
+        return;
+    }
+
+    Node* found = nullptr;
+    for (Node* curr = head; curr; curr = curr->next) {
+        if (curr->season.seasonName == season) {
+            found = curr;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "No entry found for season " << season << ".\n";
+        return;
+    }
+
+    string reason;
+    float amount;
+    cout << "Enter reason for expense: ";
+    getline(cin, reason);
+    cout << "Enter expense amount for " << reason << ": ";
+    while (!(cin >> amount)) {
+        cout << "Invalid input. Please enter a number: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    found->season.expenses += amount;
+    saveAllToFile("crop.txt");
+    cout << "Expense updated successfully.\n";
+}
+
+void updateIncome() {
+    string season;
+    cout << "Enter season name to update income for: ";
+    getline(cin, season);
+    if (!isValidSeason(season)) {
+        cout << "Invalid season.\n";
+        return;
+    }
+
+    Node* found = nullptr;
+    for (Node* curr = head; curr; curr = curr->next) {
+        if (curr->season.seasonName == season) {
+            found = curr;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "No entry found for season " << season << ".\n";
+        return;
+    }
+
+    float income;
+    cout << "Enter new income: ";
+    while (!(cin >> income)) {
+        cout << "Invalid input. Please enter a number: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    found->season.income = income;
+    saveAllToFile("crop.txt");
+    cout << "Income updated successfully.\n";
+}
 
 
 
