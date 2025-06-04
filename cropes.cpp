@@ -314,7 +314,61 @@ void searchBySeason(const string& season) {
     if (!found) cout << "No entries found for season " << season << ".\n";
 }
 
+void calculateSeasonalProfit(const string& season) {
+    float totalProfit = 0;
+    bool foundAny = false;
+    for (Node* curr = head; curr != nullptr; curr = curr->next) {
+        if (curr->season.seasonName == season) {
+            totalProfit += curr->season.profit();
+            foundAny = true;
+        }
+    }
 
+    cout << "\n=== Financial Summary for " << season << " ===\n";
+    if (!foundAny) {
+        cout << "No entries found for season " << season << ".\n";
+    } else if (totalProfit > 0)
+        cout << "Total Profit: $" << totalProfit << "\n";
+    else if (totalProfit < 0)
+        cout << "Total Loss: $" << -totalProfit << "\n";
+    else
+        cout << "Break-even.\n";
+}
+
+void calculateAnnualProfit() {
+    map<int, float> profitByYear;
+    bool foundAny = false;
+    for (Node* curr = head; curr != nullptr; curr = curr->next) {
+        profitByYear[curr->season.year] += curr->season.profit();
+        foundAny = true;
+    }
+
+    cout << "\n=== Annual Profit Summary ===\n";
+    if (!foundAny) {
+        cout << "No crop records to summarize annually.\n";
+        return;
+    }
+    for (const auto& pair : profitByYear) {
+        cout << "Year " << pair.first << ": ";
+        if (pair.second > 0)
+            cout << "Profit: $" << pair.second << "\n";
+        else if (pair.second < 0)
+            cout << "Loss: $" << -pair.second << "\n";
+        else
+            cout << "Break-even\n";
+    }
+}
+
+void cleanupList() {
+    Node* current = head;
+    while (current != nullptr) {
+        Node* nextNode = current->next;
+        delete current;
+        current = nextNode;
+    }
+    head = nullptr;
+    cout << "Memory cleaned up.\n";
+}
 
 
 
