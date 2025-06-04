@@ -275,7 +275,44 @@ void updateIncome() {
     saveAllToFile("crop.txt");
     cout << "Income updated successfully.\n";
 }
+void displayAllSortedBySeason() {
+    vector<FarmingSeason> entries;
+    for (Node* curr = head; curr != nullptr; curr = curr->next)
+        entries.push_back(curr->season);
 
+    auto comparator = [](const FarmingSeason& a, const FarmingSeason& b) {
+        auto idx = [](const string& s) {
+            for (int i = 0; i < validSeasons.size(); i++) {
+                if (validSeasons[i] == s) return i;
+            }
+            return 4;
+        };
+        return idx(a.seasonName) < idx(b.seasonName);
+    };
+
+    sort(entries.begin(), entries.end(), comparator);
+
+    cout << "\n=== All Crop Entries ===\n";
+    if (entries.empty()) {
+        cout << "No crop records to display.\n";
+        return;
+    }
+    for (const auto& e : entries) {
+        displayFarmingSeason(e);
+    }
+}
+
+void searchBySeason(const string& season) {
+    bool found = false;
+    cout << "\n=== Search Results for Season: " << season << " ===\n";
+    for (Node* curr = head; curr != nullptr; curr = curr->next) {
+        if (curr->season.seasonName == season) {
+            displayFarmingSeason(curr->season);
+            found = true;
+        }
+    }
+    if (!found) cout << "No entries found for season " << season << ".\n";
+}
 
 
 
