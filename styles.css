@@ -1,0 +1,253 @@
+/* --- General Styling --- */
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #ecf0f1; /* Softer, lighter background */
+}
+
+/* --- Typography --- */
+.label {
+    -fx-font-size: 12px; /* Reduced from 13px */
+    -fx-text-fill: #333;
+}
+
+.h1 {
+    -fx-font-size: 22px; /* Reduced from 24px */
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a237e; /* Deep indigo */
+}
+
+.h2 {
+    -fx-font-size: 16px; /* Reduced from 18px */
+    -fx-font-weight: bold;
+    -fx-text-fill: #283593; /* Lighter indigo */
+}
+
+/* --- Buttons --- */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #1e88e5, #1565c0);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 5 10; /* Reduced padding from 6 12 */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 3);
+    -fx-transition: all 0.2s ease-in-out;
+    -fx-font-size: 12px; /* Reduced from 13px */
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #1565c0, #0d47a1);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 4);
+}
+
+.button-success {
+    -fx-background-color: linear-gradient(to bottom, #43a047, #2e7d32);
+}
+.button-success:hover {
+    -fx-background-color: linear-gradient(to bottom, #2e7d32, #1b5e20);
+}
+
+.button-danger {
+    -fx-background-color: linear-gradient(to bottom, #e53935, #c62828);
+}
+.button-danger:hover {
+    -fx-background-color: linear-gradient(to bottom, #c62828, #b71c1c);
+}
+
+.button-secondary {
+    -fx-background-color: linear-gradient(to bottom, #78909c, #546e7a);
+}
+.button-secondary:hover {
+    -fx-background-color: linear-gradient(to bottom, #546e7a, #37474f);
+}
+
+.button-logout {
+    -fx-background-color: linear-gradient(to bottom, #e53935, #c62828);
+}
+.button-logout:hover {
+    -fx-background-color: linear-gradient(to bottom, #c62828, #b71c1c);
+}
+
+/* --- Input Fields --- */
+.text-field, .password-field, .combo-box {
+    -fx-background-color: #fff;
+    -fx-background-radius: 8;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 8;
+    -fx-padding: 4; /* Reduced padding from 5 */
+    -fx-font-size: 12px; /* Reduced from 13px */
+}
+
+.text-field:focused, .password-field:focused, .combo-box:focused {
+    -fx-border-color: #1e88e5;
+    -fx-effect: dropshadow(three-pass-box, rgba(30, 136, 229, 0.5), 8, 0, 0, 2);
+}
+
+/* --- TableView --- */
+.table-view {
+    -fx-background-color: #fff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #283593, #1a237e);
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 6px; /* Reduced padding from 8px */
+}
+
+.table-view .table-cell {
+    -fx-padding: 6px; /* Reduced padding from 8px */
+    -fx-border-color: transparent #e0e0e0 transparent transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+/* --- TabPane --- */
+.tab-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+}
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 3px; /* Reduced padding from 5px */
+}
+
+.tab-pane .tab {
+    -fx-background-color: #e0e0e0;
+    -fx-padding: 6 12; /* Reduced padding from 8 16 */
+    -fx-background-radius: 5;
+    -fx-font-size: 12px; /* Reduced from 13px */
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.tab-pane .tab:hover {
+    -fx-background-color: #d0d0d0;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #1e88e5;
+    -fx-text-fill: white;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: white;
+}
+
+.tab-pane .tab-content-area {
+    -fx-padding: 8px; /* Reduced padding from 10px */
+}
+
+
+/* --- Card Views --- */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 10px; /* Reduced padding from 15px */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 12, 0, 0, 5);
+}
+
+/* --- KPI Card Styles --- */
+.kpi-card {
+    -fx-background-radius: 30; /* Increased radius for spherical/pill shape */
+    -fx-padding: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 30; /* Match background radius */
+    -fx-alignment: center; /* Center content */
+}
+.kpi-card .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 10px; /* Reduced from 11px */
+}
+.kpi-card-total-customers {
+    -fx-background-color: linear-gradient(to right, #1e88e5, #42a5f5);
+}
+.kpi-card-total-products {
+    -fx-background-color: linear-gradient(to right, #43a047, #66bb6a);
+}
+.kpi-card-total-revenue {
+    -fx-background-color: linear-gradient(to right, #f4511e, #ff7043);
+}
+.kpi-card-highest-bill {
+    -fx-background-color: linear-gradient(to right, #5e35b1, #7e57c2);
+}
+.kpi-card-lowest-bill {
+    -fx-background-color: linear-gradient(to right, #e53935, #ef5350);
+}
+
+/* --- Admin Sidebar & Navigation --- */
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom, #1a237e, #283593);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e8eaf6;
+    -fx-alignment: BASELINE_LEFT;
+    -fx-font-size: 12px; /* Reduced from 13px */
+    -fx-padding: 8 12; /* Reduced padding from 10 15 */
+    -fx-cursor: hand;
+    -fx-background-radius: 0 20 20 0;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-color: transparent;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: white;
+}
+
+.nav-button:selected, .nav-button:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-text-fill: #fff;
+    -fx-border-color: #42a5f5;
+    -fx-font-weight: bold;
+}
+
+/* --- Charts --- */
+.chart {
+    -fx-padding: 5;
+    -fx-background-color: transparent;
+}
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+.chart-vertical-grid-lines, .chart-horizontal-grid-lines {
+    -fx-stroke: #e0e0e0;
+}
+.axis {
+    -fx-tick-label-fill: #555;
+    -fx-font-size: 9px; /* Reduced from 10px */
+}
+
+/* --- Dialogs --- */
+.dialog-pane {
+    -fx-background-color: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
+}
+.dialog-pane .header-panel {
+    -fx-background-color: linear-gradient(to right, #1a237e, #283593);
+}
+.dialog-pane .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px; /* Reduced from 15px */
+    -fx-font-weight: bold;
+}
+
+/* --- Icons --- */
+.icon {
+    -fx-fill: #1e88e5;
+}
